@@ -24,6 +24,9 @@ bootJar {
 
 jar {
     enabled = true
+    // disable generation of **--plain.jar
+//    enabled = false
+    archiveClassifier=''
 }
 
 java {
@@ -33,9 +36,12 @@ java {
     withSourcesJar()
 }
 
+
+
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
@@ -88,6 +94,8 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
+
+
 openApiValidate {
     inputSpec = "$rootDir/iwf-idl/iwf-sdk.yaml".toString()
 }
@@ -122,7 +130,9 @@ compileJava.dependsOn tasks.openApiGenerate
 sourceSets.main.java.srcDirs += "$buildDir/generated/src/main/java"
 
 publishing {
+
     publications {
+
         mavenJava(MavenPublication) {
             from(components.java)
 
@@ -156,9 +166,9 @@ publishing {
     }
 }
 
-signing {
-    sign publishing.publications.mavenJava
-}
+//signing {
+//    sign publishing.publications.mavenJava
+//}
 
 group = "io.iworkflow"
 version = "2.4.0"
