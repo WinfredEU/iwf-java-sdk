@@ -42,6 +42,19 @@ repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
     mavenLocal()
+    maven {
+        url localGitlab
+
+//        url "https://gitlab.datahunter.tw/api/v4/groups/datahunter/-/packages/maven"
+        name "GitLab"
+        credentials(HttpHeaderCredentials) {
+            name = 'Private-Token'
+            value = gitLabPrivateToken
+        }
+        authentication {
+            header(HttpHeaderAuthentication)
+        }
+    }
 }
 
 dependencies {
@@ -131,6 +144,7 @@ sourceSets.main.java.srcDirs += "$buildDir/generated/src/main/java"
 
 publishing {
 
+
     publications {
 
         mavenJava(MavenPublication) {
@@ -164,6 +178,21 @@ publishing {
             }
         }
     }
+
+
+    repositories {
+        maven {
+            url localGitlab
+//            url "https://gitlab.datahunter.tw/api/v4/groups/datahunter/-/packages/maven"
+            credentials(HttpHeaderCredentials) {
+                name = 'Private-Token'
+                value = gitLabPrivateToken // the variable resides in $GRADLE_USER_HOME/gradle.properties
+            }
+            authentication {
+                header(HttpHeaderAuthentication)
+            }
+        }
+    }
 }
 
 //signing {
@@ -173,13 +202,13 @@ publishing {
 group = "io.iworkflow"
 version = "2.5.1"
 
-nexusPublishing {
-    repositories {
-        sonatype {
-            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
-            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
-            // username = project.property('myNexusUsername')
-            // password = project.property('myNexusPassword')
-        }
-    }
-}
+//nexusPublishing {
+//    repositories {
+//        sonatype {
+//            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
+//            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+//            // username = project.property('myNexusUsername')
+//            // password = project.property('myNexusPassword')
+//        }
+//    }
+//}
