@@ -48,8 +48,11 @@ repositories {
 //        url "https://gitlab.datahunter.tw/api/v4/groups/datahunter/-/packages/maven"
         name "GitLab"
         credentials(HttpHeaderCredentials) {
-            name = 'Private-Token'
-            value = gitLabPrivateToken
+
+            name =  'Deploy-Token'
+            value = gitLabDeployToekn
+//            name = 'Private-Token'
+//            value = gitLabPrivateToken
         }
         authentication {
             header(HttpHeaderAuthentication)
@@ -185,8 +188,10 @@ publishing {
             url localGitlab
 //            url "https://gitlab.datahunter.tw/api/v4/groups/datahunter/-/packages/maven"
             credentials(HttpHeaderCredentials) {
-                name = 'Private-Token'
-                value = gitLabPrivateToken // the variable resides in $GRADLE_USER_HOME/gradle.properties
+                name =  'Deploy-Token'
+                value = gitLabDeployToekn
+//                name = 'Private-Token'
+//                value = gitLabPrivateToken // the variable resides in $GRADLE_USER_HOME/gradle.properties
             }
             authentication {
                 header(HttpHeaderAuthentication)
